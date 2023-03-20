@@ -1,0 +1,28 @@
+<launch>
+    <arg name="leader_robot_name" value=""/>
+    <arg name="slave_robot_1" value="slave_1"/>
+
+
+    <arg name="slave_x_1" value="-0.35"/>
+    <arg name="slave_y_1" value="0.35"/>
+
+    <param name="max_vel_x" value="0.8" />
+    <param name="min_vel_x" value="0.05" />
+    <param name="max_vel_theta" value="0.8" />
+    <param name="min_vel_theta" value="0.05" />
+
+    <node pkg="tf" type="static_transform_publisher" name="base_to_$(arg slave_robot_1)" args="$(arg slave_x_1) $(arg slave_y_1) 0 0 0 0 $(arg leader_robot_name)/base_footprint $(arg leader_robot_name)/$(arg slave_robot_1) 100" />
+
+    <node pkg="wheeltec_multi" type="leader_follower_formation_pid.py" name="leader_follower1_formation_pid" output="screen" >
+            <param name="leader_robot_name" value="$(arg leader_robot_name)"/>
+            <param name="follower_robot_name" value="$(arg slave_robot_1)" />
+            <param name="k_v" type="double" value="1.5" />
+            <param name="k_l" type="double" value="1.0" />
+            <param name="k_a" type="double" value="1.0" />
+            <param name="slave_robot" value="$(arg slave_robot_1)"/>
+            <param name="slave_x" value="$(arg slave_x_1)"/>
+            <param name="slave_y" value="$(arg slave_y_1)"/>
+            <param name="base_to_slave" type="string" value="/$(arg slave_robot_1)" /> <!-- slave target的topic名稱 -->
+            <param name="base_frame" type="string" value="base_footprint" />
+    </node> 
+</launch>

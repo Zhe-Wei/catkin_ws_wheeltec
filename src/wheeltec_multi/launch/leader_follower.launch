@@ -1,0 +1,11 @@
+<launch>
+    <arg name="robot_name_0" default=""/>
+    <arg name="robot_name_1" default="slave_1"/>
+
+    <!-- Simple leader follower -->
+    <node pkg="wheeltec_multi" type="leader_follower_formation.py" name="leader_follower" output="screen"> 
+        <param name="target_frame" value="$(arg robot_name_0)/base_link"/>
+        <param name="follower_robot_name" value="$(arg robot_name_1)"/>
+        <param name="set_distance" value="0.5"/>
+    </node>
+</launch>

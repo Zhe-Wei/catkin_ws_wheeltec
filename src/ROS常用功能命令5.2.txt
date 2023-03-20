@@ -1,3 +1,5 @@
+ls -l /dev/* | grep USB
+
 查看节点与话题关系
 rqt_graph
 
@@ -25,6 +27,9 @@ roslaunch simple_follower visual_follower.launch
 roslaunch turn_on_wheeltec_robot mapping.launch 
 roslaunch turn_on_wheeltec_robot navigation.launch 
 一键保存地图(WHEELTEC.pgm、WHEELTEC.yaml)
+rosrun map_server map_saver -f /home/ubuntu/catkin_ws/src/turn_on_wheeltec_robot/map/sim_race_map_2
+要去改navigation.launch地圖路徑
+
 roslaunch turn_on_wheeltec_robot map_saver.launch 
 
 6.3D建图、3D导航。

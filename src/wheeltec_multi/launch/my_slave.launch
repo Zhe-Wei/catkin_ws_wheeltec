@@ -1,0 +1,38 @@
+
+<launch>
+	<arg name="slave_robot" value="slave_1"/> 
+
+
+	<arg name="slave_x" value="-0.35"/> 		
+	<arg name="slave_y" value="0.35"/> 		
+	<!-- <node pkg="tf" type="static_transform_publisher" name="base_to_$(arg slave_robot)" args="$(arg slave_x) $(arg slave_y) 0 0 0 0   base_footprint $(arg slave_robot) 100" /> -->
+
+	<group ns ="$(arg slave_robot)">
+		
+		<param name="max_vel_x" value="0.8" />
+		<param name="min_vel_x" value="0.05" />
+		<param name="max_vel_theta" value="0.8" />
+		<param name="min_vel_theta" value="0.05" />
+
+		<param name = "tf_prefix" value="$(arg slave_robot)"/>
+		<param name = "robot_description" textfile="$(find turn_on_wheeltec_robot)/urdf/mini_diff_robot.urdf"/> 
+
+		<include file="$(find wheeltec_multi)/launch/turn_on_wheeltec_robot.launch" >
+			<arg name="slave_robot" value="$(arg slave_robot)"/>
+			<arg name="slave_x" value="$(arg slave_x)"/>
+			<arg name="slave_y" value="$(arg slave_y)"/>
+		</include>
+
+		<param name = "tf_prefix" value="$(arg slave_robot)"/>
+		<param name = "robot_description" textfile="$(find turn_on_wheeltec_robot)/urdf/mini_diff_robot.urdf"/> 
+
+		<include file="$(find wheeltec_multi)/launch/include/amcl.launch" >
+			<!-- <arg name="use_map_topic" value="true"/> -->
+			<arg name="slave_robot" value="$(arg slave_robot)"/>
+		</include>
+
+		<!-- <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+		<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/> -->
+	</group>
+	
+</launch>
