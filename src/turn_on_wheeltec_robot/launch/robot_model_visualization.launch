@@ -198,7 +198,7 @@
   <!-- car_mode and tf  mini_diff-->
   <group if="$(eval car_mode == 'mini_diff')">
       <!-- <node pkg="tf" type="static_transform_publisher" name="base_to_laser" args="0.125 0.00 0.16 3.14 0 0  base_footprint laser 100" /> -->
-      <node pkg="tf" type="static_transform_publisher" name="base_to_laser" args="0.125 0.00 0.16 3.14 0 0  base_footprint laser 100" />
+      <node pkg="tf" type="static_transform_publisher" name="base_to_laser" args="0.155 0.00 0.12 3.14 0 0  base_footprint laser 100" />
       <node pkg="tf" type="static_transform_publisher" name="base_to_camera" args="0.185 0.00 0.11 0 0 0   base_footprint camera_link 100" />
       <node pkg="tf" type="static_transform_publisher" name="base_to_gyro" args="0 0 0 0 0 0 base_footprint gyro_link 100" />
   </group>
