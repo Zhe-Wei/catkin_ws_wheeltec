@@ -32,11 +32,13 @@
   <!--当开启导航功能时 启用导航算法选择-->
   <!--当开启2D或3D导航功能时-->
   <!-- 开启teb_local_planner导航算法 与dwa算法相比效果更佳-->
-  <!-- <include file="$(find turn_on_wheeltec_robot)/launch/include/teb_local_planner.launch" if="$(arg navigation)" /> -->
-  <!-- 开启dwa_local_planner导航算法-->
-  <include file="$(find turn_on_wheeltec_robot)/launch/include/dwa_local_planner.launch" if="$(arg navigation)">
+  <include file="$(find turn_on_wheeltec_robot)/launch/include/teb_local_planner.launch" if="$(arg navigation)">
     <arg name="car_mode" value="$(arg car_mode)"/>
   </include>
+  <!-- 开启dwa_local_planner导航算法-->
+  <!-- <include file="$(find turn_on_wheeltec_robot)/launch/include/dwa_local_planner.launch" if="$(arg navigation)">
+    <arg name="car_mode" value="$(arg car_mode)"/>
+  </include> -->
 
   <!--当开启纯视觉导航功能时-->
   <!-- 开启teb_local_planner导航算法 与dwa算法相比效果更佳-->
