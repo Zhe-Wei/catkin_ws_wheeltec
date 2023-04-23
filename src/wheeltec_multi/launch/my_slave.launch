@@ -30,7 +30,7 @@
 			<!-- <arg name="use_map_topic" value="true"/> -->
 			<arg name="slave_robot" value="$(arg slave_robot)"/>
 		</include>
-
+		<!-- <include file="$(find als_ros)/launch/mcl.launch" ></include>	 -->
 		<!-- <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
 		<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/> -->
 	</group>

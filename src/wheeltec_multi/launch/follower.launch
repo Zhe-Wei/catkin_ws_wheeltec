@@ -11,9 +11,12 @@
     <param name="max_vel_theta" value="0.8" />
     <param name="min_vel_theta" value="0.05" />
 
+    <arg name="PID" value="False" /> <!-- True(PID) or False(Fuzzy) -->
+
     <node pkg="tf" type="static_transform_publisher" name="base_to_$(arg slave_robot_1)" args="$(arg slave_x_1) $(arg slave_y_1) 0 0 0 0 $(arg leader_robot_name)/base_footprint $(arg leader_robot_name)/$(arg slave_robot_1) 100" />
 
-    <node pkg="wheeltec_multi" type="leader_follower_formation_pid.py" name="leader_follower1_formation_pid" output="screen" >
+    <!-- slave PID-->
+    <node if="$(arg PID)"  pkg="wheeltec_multi" type="leader_follower_formation_pid.py" name="leader_follower1_formation_pid" output="screen" >
             <param name="leader_robot_name" value="$(arg leader_robot_name)"/>
             <param name="follower_robot_name" value="$(arg slave_robot_1)" />
             <param name="k_v" type="double" value="1.5" />
@@ -24,5 +27,19 @@
             <param name="slave_y" value="$(arg slave_y_1)"/>
             <param name="base_to_slave" type="string" value="/$(arg slave_robot_1)" /> <!-- slave target的topic名稱 -->
             <param name="base_frame" type="string" value="base_footprint" />
+    </node> 
+
+    <!-- slave fuzzy -->
+    <arg name="slave1_x" value="-1.2"/> 
+	<arg name="slave1_y" value="1.2"/>
+    
+    <node unless="$(arg PID)" pkg="wheeltec_multi" type="leader_follower_formation_fuzzy.py" name="leader_follower1_formation_fuzzy" output="screen" >
+        <param name = "tf_prefix" value="$(arg slave_robot_1)"/>
+        <param name="leader_robot_name" value="$(arg leader_robot_name)" />
+        <param name="follower_robot_name" value="$(arg slave_robot_1)" />
+        <param name="slave1_x" type="double" value="$(arg slave1_x)" />
+        <param name="slave1_y" type="double" value="$(arg slave1_y)" />
+        <param name="base_to_slave" type="string" value="/$(arg slave_robot_1)" />
+        <param name="base_frame" type="string" value="base_footprint" />
     </node> 
 </launch>
